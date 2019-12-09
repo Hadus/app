@@ -1,0 +1,131 @@
+// {
+//   "workbench.colorTheme": "Spacegray Eighties Dark",
+//   // 打开文件自动检测缩进
+//   "editor.detectIndentation": false,
+//   // tab缩进2个字符
+//   "editor.tabSize": 2,
+//   // 保存自动格式化
+//   "editor.formatOnSave": true,
+//   // vetur默认配置
+//   "vetur.format.defaultFormatterOptions": {
+//     "js-beautify-html": {
+//       "wrap_attributes": "auto"
+//     },
+//     "prettyhtml": {
+//       "printWidth": 140,
+//       "singleQuote": false,
+//       "wrapAttributes": true,
+//       "sortAttributes": true
+//     },
+//     "prettier": {
+//       "tabWidth": 2, // 指定每个缩进级别的空格数
+//       "semi": true, // 句末加分号
+//       "singleQuote": true, // 用单引号
+//       "bracketSpacing": true, // 在对象文字中打印括号之间的空格
+//       "printWidth": 140, // 换行字符串阈值
+//       "trailingComma": "none", // 最后一个对象元素加逗号
+//       "proseWrap": "preserve" // 是否要换行
+//     }
+//   },
+//   "prettier.tabWidth": 2, // 指定每个缩进级别的空格数
+//   "prettier.semi": true, // 句末加分号
+//   "prettier.singleQuote": true, // 用单引号
+//   "prettier.bracketSpacing": true, // 在对象文字中打印括号之间的空格
+//   "prettier.printWidth": 140, // 换行字符串阈值
+//   "prettier.trailingComma": "none", // 最后一个对象元素加逗号
+//   "prettier.proseWrap": "preserve", // 是否要换行
+//   //由于prettier不能格式化vue文件template 所以使用js-beautify-html格式化
+//   "vetur.format.defaultFormatter.html": "js-beautify-html",
+//   "window.zoomLevel": 0,
+//   "fileheader.customMade": {
+//     // 文件头部注释
+//     "Descripttion": "",
+//     "version": "",
+//     "Author": "ZhengPan",
+//     "Date": "Do not edit",
+//     "LastEditors": "ZhengPan",
+//     "LastEditTime": "Do not Edit"
+//   },
+//   "fileheader.cursorMode": {
+//     //函数注释
+//     "name": "",
+//     "test": "test font",
+//     "msg": "",
+//     "param": "",
+//     "return": ""
+//   },
+//   "fileheader.configObj": {
+//     "annotationStr": {
+//       "head": "/********************", // 自定义注释头部
+//       "middle": " * @", // 自定义注释中间部分(注意空格,这也是最终生成注释的一部分)
+//       "end": " ********************/", // 自定义注释尾部
+//       "use": false // 是否使用自定义注释符号
+//     },
+//     "autoAdd": false, // 默认开启
+//   },
+//   "files.autoSave": "off",
+//   "git.enableSmartCommit": true,
+//   "git.confirmSync": false
+// }
+// liuhuitao
+{
+  "workbench.colorTheme": "Spacegray Eighties Dark",
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
+  "git.autofetch": true,
+  "files.associations": {
+    "*.cjson": "jsonc",
+    "*.wxss": "css",
+    "*.wxs": "javascript"
+  },
+  "emmet.includeLanguages": {
+    "wxml": "html"
+  },
+  "minapp-vscode.disableAutoConfig": true,
+  "eslint.autoFixOnSave": true,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    {
+      "language": "vue",
+      "autoFix": true
+    }
+  ],
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+  //对prettier不能格式化的文件
+  "vetur.format.defaultFormatter.html": "js-beautify-html",
+  "vetur.format.defaultFormatter.js": "vscode-typescript",
+  "fileheader.customMade": {
+    // 文件头部注释
+    "Descripttion": "",
+    "version": "",
+    "Author": "ZhengPan",
+    "Date": "Do not edit",
+    "LastEditors": "ZhengPan",
+    "LastEditTime": "Do not Edit"
+  },
+  "fileheader.cursorMode": {
+    //函数注释
+    "name": "",
+    "Author": "ZhengPan",
+    "test": "test font",
+    "msg": "",
+    "param": "",
+    "return": "",
+    "example": ""
+  },
+  "fileheader.configObj": {
+    "annotationStr": {
+      "head": "/********************", // 自定义注释头部
+      "middle": " * @", // 自定义注释中间部分(注意空格,这也是最终生成注释的一部分)
+      "end": " ********************/", // 自定义注释尾部
+      "use": false // 是否使用自定义注释符号
+    },
+    "autoAdd": false // 默认开启
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}

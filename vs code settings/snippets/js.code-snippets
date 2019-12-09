@@ -1,0 +1,305 @@
+{
+  // Place your global snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+  // description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+  // is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+  // used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+  // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+  // Placeholders with the same ids are connected.
+  // Example:
+  "scs": {
+    "scope": "javascript,typescript",
+    "prefix": "scs",
+    "body": [
+      "<script src=\"$1\"></script>",
+    ],
+    "description": "js notes"
+  },
+  "ann": {
+    "scope": "javascript,typescript,scss",
+    "prefix": "ann",
+    "body": [
+      "/** $1 **/",
+    ],
+    "description": "js notes"
+  },
+  "anna": {
+    "scope": "javascript,typescript,scss",
+    "prefix": "anna",
+    "body": [
+      "/****",
+      "  $1",
+      "**/",
+    ],
+    "description": "js notes"
+  },
+  "cl": {
+    "scope": "javascript,typescript,scss",
+    "prefix": "cl",
+    "body": [
+      "console.log(${1:'$2'})"
+    ],
+    "description": "console.log"
+  },
+  "cd": {
+    "scope": "javascript,typescript,scss",
+    "prefix": "cd",
+    "body": [
+      "console.dir(${1:'$2'})"
+    ],
+    "description": "console.dir"
+  },
+  "im": {
+    "scope": "javascript,typescript,scss",
+    "prefix": "im",
+    "body": [
+      "import '$1'",
+    ],
+    "description": "import"
+  },
+  "imf": {
+    "scope": "javascript,typescript,scss",
+    "prefix": "imf",
+    "body": [
+      "import $1 from '$2'",
+    ],
+    "description": "import from"
+  },
+  "imm": {
+    "scope": "javascript,typescript,scss",
+    "prefix": "imm",
+    "body": [
+      "import {$1} from '$2'",
+    ],
+    "description": "import {} from"
+  },
+  "ex": {
+    "scope": "javascript,typescript",
+    "prefix": "ex",
+    "body": [
+      "export ${1:data}",
+    ],
+    "description": "export"
+  },
+  "exc": {
+    "scope": "javascript,typescript",
+    "prefix": "exc",
+    "body": [
+      "export const ${1:data} = $2",
+    ],
+    "description": "export const"
+  },
+  "exf": {
+    "scope": "javascript,typescript",
+    "prefix": "exf",
+    "body": [
+      "export function ${1:fn}($2){",
+      "  $3",
+      "}",
+    ],
+    "description": "export function"
+  },
+  "exo": {
+    "scope": "javascript,typescript",
+    "prefix": "exo",
+    "body": [
+      "export {",
+      "  $1",
+      "}",
+    ],
+    "description": "export object"
+  },
+  "exd": {
+    "scope": "javascript,typescript",
+    "prefix": "exd",
+    "body": [
+      "export default $1",
+    ],
+    "description": "export default"
+  },
+  "fun": {
+    "scope": "javascript,typescript",
+    "prefix": "fun",
+    "body": [
+      "function ${1:fn}(${2:params}) {",
+      "  $3",
+      "}"
+    ],
+    "description": "function"
+  },
+  "fnb": {
+    "scope": "javascript,typescript",
+    "prefix": "fnb",
+    "body": [
+      "(${1:params}) {",
+      "  $2",
+      "}"
+    ],
+    "description": "function body"
+  },
+  "fn": {
+    "scope": "javascript,typescript",
+    "prefix": "fn",
+    "body": [
+      "function (${1:params}) {",
+      "  $2",
+      "}"
+    ],
+    "description": "function body"
+  },
+  "fnarrow": {
+    "scope": "javascript,typescript",
+    "prefix": "fnarrow",
+    "body": [
+      "(${1:params}) => {",
+      "  $2",
+      "}"
+    ],
+    "description": "arrow function"
+  },
+  ".th": {
+    "scope": "javascript,typescript",
+    "prefix": ".th",
+    "body": [
+      ".then((${1:res}) => {",
+      "  ${2:${3:this.data} = ${1:res}.data}",
+      "})"
+    ],
+    "description": ".th"
+  },
+  "fori": {
+    "scope": "javascript,typescript",
+    "prefix": "fori",
+    "body": [
+      "for(var ${1:i} = 0; ${1:i} < ${2:${3:lis}.length}; ${1:i}++){",
+      "  $4",
+      "}"
+    ],
+    "description": "fori"
+  },
+  "forin": {
+    "scope": "javascript,typescript",
+    "prefix": "forin",
+    "body": [
+      "for(var ${1:k} in ${2:obj}){",
+      "  $3",
+      "}"
+    ],
+    "description": "forin"
+  },
+  "newvue": {
+    "scope": "javascript,typescript",
+    "prefix": "newvue",
+    "body": [
+      "/**引入vue**/",
+      "import Vue from 'vue'",
+      "",
+      "/**引入App组件**/",
+      "import App from './App.vue'",
+      "",
+      "/**引入vue-router**/",
+      "import VueRouter from 'vue-router'",
+      "",
+      "/**注册vue-router**/",
+      "Vue.use(VueRouter)",
+      "",
+      "/**引入router.js路由配置文件**/",
+      "import router from './router.js'",
+      "",
+      "/**实例化vue**/",
+      "var vm = new Vue({",
+      "  el: '#app',",
+      "  data: {},",
+      "  methods: {},",
+      "  render: h => h(App),",
+      "  router",
+      "  store",
+      "})"
+    ],
+    "description": "newvue"
+  },
+  "newvuerouter": {
+    "scope": "javascript,typescript",
+    "prefix": "newvuerouter",
+    "body": [
+      "/**引入vue**/",
+      "import Vue from 'vue';",
+      "/**引入vue-router**/",
+      "import VueRouter from 'vue-router';",
+      "/**注册vueRouter**/",
+      "Vue.use(VueRouter);",
+      "",
+      "var router = new VueRouter({",
+      "  linkActiveClass: ${1:'${2:routerActive}'},",
+      "  routes: [",
+      "    {",
+      "      path: '/',",
+      "      name: 'index',",
+      "      title: 'index',",
+      "      redirect: '/home',",
+      "      component: (resolve) => { require(['../pages/index.vue'], resolve) }",
+      "    },",
+      "  ]",
+      "});",
+      "",
+      "export default router"
+    ],
+    "description": "new vuerouter"
+  },
+  "vuerouter": {
+    "scope": "javascript,typescript",
+    "prefix": "vuerouter",
+    "body": [
+      "{",
+      "  path: '$1',",
+      "  name: '$2',",
+      "  title: '$3',",
+      "  component: (resolve) => { ${4:require(['$5'], resolve)} },",
+      "  children: [",
+      "    {",
+      "      $6",
+      "    }",
+      "  ]",
+      "},"
+    ],
+    "description": "vuerouter"
+  },
+  "newvuex": {
+    "scope": "javascript,typescript",
+    "prefix": "newvuex",
+    "body": [
+      "/**引入vue**/",
+      "import Vue from 'vue'",
+      "/**引入vuex**/",
+      "import Vuex from 'vuex'",
+      "/**注册vuex**/",
+      "Vue.use(Vuex);",
+      "",
+      "const store = new Vuex.store({",
+      "  modules: {",
+      "    a: moduleA,",
+      "  },",
+      "  state: {",
+      "    ${1:count: 0}",
+      "  },",
+      "  mutations: {",
+      "    increment (state) {",
+      "      state.count++",
+      "    },",
+      "  },",
+      "  getters: {",
+      "    doneTodos: state => {",
+      "      return state.todos.filter(todo => todo.done)",
+      "    }",
+      "  },",
+      "  actions: {",
+      "    increment (context) {",
+      "      context.commit('increment')",
+      "    }",
+      "  },",
+      "})",
+      "",
+      "export default router"
+    ],
+    "description": "new vuex.store"
+  },
+}
