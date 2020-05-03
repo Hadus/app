@@ -1,33 +1,33 @@
 {
-  "vue": {
-    "prefix": "vue",
-    "body": [
-      "<template>",
-      "  <div>",
-      "    $1",
-      "  </div>",
-      "</template>",
-      "",
-      "<script>",
-      "export default {",
-      "  name: '',",
-      "  components: {},",
-      "  mixins:[],",
-      "  props: {},",
-      "  data() {",
-      "    return {};",
-      "  },",
-      "  computed: {},",
-      "  watch: {},",
-      "  created() {},",
-      "  mounted() {},",
-      "  destroyed() {},",
-      "  methods: {}",
-      "};",
-      "</script>",
-      "<style lang=\"scss\" scoped>",
-      "</style>"
-    ],
-    "description": ".vue"
-  }
+	"vue": {
+		"prefix": "vue",
+		"body": [
+			"<template>",
+			"  <div>",
+			"    $1",
+			"  </div>",
+			"</template>",
+			"",
+			"<script>",
+			"export default {",
+			"  name: '',",
+			"  components: {},",
+			"  mixins:[],",
+			"  props: {},",
+			"  data() {",
+			"    return {};",
+			"  },",
+			"  computed: {},",
+			"  watch: {},",
+			"  created() {},",
+			"  mounted() {},",
+			"  destroyed() {},",
+			"  methods: {}",
+			"};",
+			"</script>",
+			"<style lang=\"scss\" scoped>",
+			"</style>"
+		],
+		"description": ".vue"
+	}
 }

@@ -15,10 +15,10 @@
     "description": "js notes"
   },
   "ann": {
-    "scope": "javascript,typescript,scss",
+    "scope": "javascript,typescript,jsx,scss",
     "prefix": "ann",
     "body": [
-      "/** $1 **/",
+      "/* $1 */",
     ],
     "description": "js notes"
   },
@@ -33,7 +33,7 @@
     "description": "js notes"
   },
   "cl": {
-    "scope": "javascript,typescript,scss",
+    "scope": "javascript,typescript,jsx",
     "prefix": "cl",
     "body": [
       "console.log(${1:'$2'})"
@@ -41,7 +41,7 @@
     "description": "console.log"
   },
   "cd": {
-    "scope": "javascript,typescript,scss",
+    "scope": "javascript,typescript,jsx",
     "prefix": "cd",
     "body": [
       "console.dir(${1:'$2'})"
@@ -49,7 +49,7 @@
     "description": "console.dir"
   },
   "im": {
-    "scope": "javascript,typescript,scss",
+    "scope": "javascript,typescript,js,scss",
     "prefix": "im",
     "body": [
       "import '$1'",
@@ -57,7 +57,7 @@
     "description": "import"
   },
   "imf": {
-    "scope": "javascript,typescript,scss",
+    "scope": "javascript,typescript,jsx",
     "prefix": "imf",
     "body": [
       "import $1 from '$2'",
@@ -65,7 +65,7 @@
     "description": "import from"
   },
   "imm": {
-    "scope": "javascript,typescript,scss",
+    "scope": "javascript,typescript,jsx",
     "prefix": "imm",
     "body": [
       "import {$1} from '$2'",
@@ -170,7 +170,7 @@
     "scope": "javascript,typescript",
     "prefix": "fori",
     "body": [
-      "for(var ${1:i} = 0; ${1:i} < ${2:${3:lis}.length}; ${1:i}++){",
+      "for(let ${1:i} = 0; ${1:i} < ${2:${3:lis}.length}; ${1:i}++){",
       "  $4",
       "}"
     ],
@@ -180,7 +180,7 @@
     "scope": "javascript,typescript",
     "prefix": "forin",
     "body": [
-      "for(var ${1:k} in ${2:obj}){",
+      "for(let ${1:k} in ${2:obj}){",
       "  $3",
       "}"
     ],
