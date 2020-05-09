@@ -15,7 +15,7 @@
 ### 配置
 
 - 约定大于配置
-  + 指定默认 entry 文件为 /src/index.js
+  + 指定默认 en [vue.html](../../06.拓展复习/02.webpack+vue/vue.html) try 文件为 /src/index.js
   + 指定默认 output 文件为 /dist/main.js
 
 ```javascript
@@ -174,27 +174,27 @@ export default class Person extends React.Component {
   construcor(props){ // 需要定义state时候才需要constructor
     super(props)
     this.state = {}
-    // this传参数第一种
+    // 2.1 this传参数第一种
     this.showh1 = this.showh1.bind(this,param)
 	}
 
 	render(){
     return (<div onClick={this.show}>
       <h1 onClick={this.showh1}>h1</h1>
-        {/* this传参数第二种 */}
+        {/* 2.2 this传参数第二种 */}
       <h2 onClick={this.showh2.bind(this,param)}>h2</h2>
       <h3 onClick={()=>{this.showh3(param)}}>h3</h3>
     </div>)
   }
-	{/* 不传值使用这种方式最简单，但是如果多次调用，每次调用都会新建一个匿名函数，效率不高 */}
+	{/* 1 不传值使用这种方式最简单，但是如果多次调用，每次调用都会新建一个匿名函数，效率不高 */}
 	show = ()=>{} 
-	{/* 传值方法-事件被调用的对象不一定 */}
-	{/* 使用  show(){}  ，需要通过bind让函数内部的this指向之前的参数 */}
-	{/* this.show.bind(this) 可以在constructor中重新复制函数，也可以直接写在div绑定的onClick中*/}
+	{/* 2 传值方法-事件被调用的对象不一定 */}
+	{/* 2.1 使用  show(){}  ，需要通过bind让函数内部的this指向之前的参数 */}
+	{/* 2.2 this.show.bind(this) 可以在constructor中重新复制函数，也可以直接写在div绑定的onClick中*/}
 	{/*事件对象的第一个参数默认是event*/}
 	showh1(event,param){} 
   showh2(event,param){} 
-	{/* 使用箭头函数保证this的指向 , 调用showh3是全局调用的，即当前组件*/}
+	{/* 2.3 使用箭头函数保证this的指向 , 调用showh3是全局调用的，即当前组件*/}
   showh3(param){} 
 }
 ```
@@ -220,7 +220,7 @@ this.setState({
 ### 创建阶段
 
 - static defaultProps={} 设置默认值
-- this.state={}
+- this.state={} 
 - componentWillMount 可以拿到state，props，实例方法
 - render（虚拟DOM是在render函数中创建的）
 - componentDidMount
@@ -231,7 +231,7 @@ this.setState({
 
 ```javascript
 componentWillReceiveProps(nextProps){
-  // 2.直接this.props.msg获取到的是上一次的state
+  // 2.this.props.msg获取到的是上一次的props
   console.log(this.props.msg)
   console.log(nextProps.msg)
 }
@@ -244,7 +244,7 @@ componentWillReceiveProps(nextProps){
 ```javascript
 shouldComponentUpdate(nextProps,nextState){
   // 1.若返回false则不会继续执行后续生命周期函数render创建DOM，而是直接退回运行中，但是state已经被修改
-  // 2.直接this.state.msg获取到的是上一次的state
+  // 2.this.state.msg获取到的是上一次的state
   console.log(this.state.msg)
   console.log(nextState.msg)
 }
@@ -254,6 +254,13 @@ shouldComponentUpdate(nextProps,nextState){
 
 - componentWillUpdate(nextProps,nextState)
 - render
+
+```javascript
+// 此时页面还是旧的virtual DOM
+```
+
+
+
 - componentDidUpdate(prevProps,prevState)
 
 ### 销毁阶段
@@ -302,19 +309,25 @@ this.context.msg
 
 ```jsx
 // HashRouter:路由根容器元素，包含所有路由，一个项目只出现一次，只能包含一个元素
-// Route：路由规则及占位符
+// Route：既是路由规则，又是占位符
 // Link：路由链接
-import {HashRouter,Route,Link} from 'react-router-dom'
+// Switch:匹配到路由不再向下匹配
+import {HashRouter,Route,Link,Switch} from 'react-router-dom'
 class App extends React.component{
-  render(){
+  render() {
     return  (
       // 启用路由
   		<HashRouter>
-     		<div><div>
-    	<HashRouter>
+     		<div></div>
+    	</HashRouter>
   	)
   }
 }
+        
+// Link：路由链接
+// exact 启用精确匹配
+<Link to="/home">首页</Link>
+<Route path="/home" component={Home} exact></Route>
 ```
 
 ## redux 状态管理
@@ -326,6 +339,10 @@ class App extends React.component{
 > flux也是状态管理器，redux借鉴了很多flux的东西，但是在flux上优化并提升了很多方法，flux已经承认redux，所以flux已经处于被淘汰的状态
 
 > 创建一个公共仓储 store 来统一管理组建之间需要公用的数据
+>
+> redux提供单一数据源
+>
+> redux开始加载回默认出发一次reducer，来初始化store中的state树 
 
 ### 基本流程
 
@@ -363,8 +380,8 @@ class App extends React.component{
   }
   
   var rootReducer = combineReducers({
-    user,
-    project
+    reducer1,
+    reducer2
   })
   
   var store = createStore(rootReducer)
@@ -385,7 +402,7 @@ class App extends React.component{
   > ```
 
   - getState()：获取 store 中的 state
-  - dispatch(action)：通知 store 更新 state 的值
+  - dispatch(action)：通过action通知 store 更新 state 的意图
   - subscribe(listener)：注册一个订阅者
 
   ```javascript
@@ -405,12 +422,12 @@ construct(props){
 
 - 更改 store 中的数据 state
 
-  - 1 创建一个用于数据 state 更新的对象 action，来描述需要修改 state 的意图
+  - 1 创建一个用于数据 state 更新的对象 action的对象，来描述需要修改 state 的意图，并不描述怎么更新state
 
   ```javascript
   const action = {
     type:'需要更改的 state 的 key 的映射', // 除type外，其他字段都可自行定义
-    text：'被更改后的值'
+    text：'啊啊啊 '
   }
   ```
 
@@ -438,8 +455,8 @@ construct(props){
     1. 调用 reducer 函数，直接将数据 state 的2种状态 previousState, action 交给 根reducer 来处理
     2. 根 reducer 拿到2种状态后开始处理（若有子 reducer 就分发处理），并将处理完后的值作为 newState返回给 store（reducer 只处理数据，并不修改 state）
     3. store 更新自己的数据 state，同时调用订阅者 listener（store.subscribee 传入的 callback）
-  - 5 store 的数据 state 发生改变，，但组件中的 state 并未改变，被调用的订阅者 listener 来重新更新组件
-  - 6 通过 step2 中返回的方  unsubscribe 注销订阅者
+  - 5 store 的数据 state 发生改变，但组件中的 state 并未改变，被调用的订阅者 listener 来重新更新组件
+  - 6 通过 step2 中返回的方法  unsubscribe 注销订阅者
 
 ### 项目中的优化技巧
 
@@ -447,21 +464,52 @@ construct(props){
    1. 方便维护，复用性强
    2. 这样如果 type 的常量变量名写错，就会直接报错，xx is not defined。原来的方法不会报错，因为直接走 `return state`了
 2. action 单独抽离：`createAction.js` 返回 action 工厂函数，并引入 step1 中的文件
+3. state一般分为三类：
+   1. domainData:服务端获取的数据，例如：用户信息，数据列表
+   2. UI state：决定页面显示的状态，例如：受控组件，弹窗
+   3. App state：是否loading，路由
 
 ### react-redux
 
-> Redux 本身和 React 没有关系，只是数据处理中心，是 React-Redux 让他们联系在一起。`
-> `React-rRedux提供两个方法：connect 和 Provider。
+> 统一解决redux的监听 subscribe 和取消监听 unsubscribe
+>
+>  Redux 本身和 React 没有关系，只是数据处理中心，是 React-Redux 让他们联系在一起。`
+> `React-redux提供两个方法：connect 和 Provider。
 
 - connext
-  - connect连接React组件和Redux store。connect实际上是一个高阶函数，返回一个新的已与 Redux store 连接的组件类。
-   - 负责接受一个组件，把state里的一些数据放进去，返回一个组件；
+  - connect连接React组件和Redux store。connect实际上是一个高阶组件函数，返回一个新的已与 Redux store 连接的组件类。
+   - 负责接受一个组件，把state里的一些数据放进去，返回一个新的组件；
    - 数据变化的时候，能够通知组件。
-   -  mapStateToProps`：从Redux状态树中提取需要的部分作为props传递给当前的组件。
-   - `mapDispatchToProps`：将需要绑定的响应事件（action）作为props传递到组件上。
+   - `mapStateToProps(state,ownProps)`：
+      - state: redux 中的 store
+     - ownProps: 自己的 props，不能被覆盖了
+      - 从Redux状态树中提取需要的部分作为props传递给当前的组件。state 的接收方
+      - 返回值为
+   - `mapDispatchToProps(dispatch,ownProps)`：
+      - dispatch: store.dispatch()
+      - ownProps: 自己的 props，不能被覆盖了
+      - 将需要绑定的响应事件 dispatch(action) ,作为props传递到组件上。 state 的发送方
+      - 返回一个object，内部key: 函数名；value：函数体，内部是一个dispatch(action)
+      - contect 函数会把整个返回的 object 挂载（assign）到 props 上面
 
 ```javascript
-const VisibleTodoList = connect(
+import {content} from 'react-redux'
+// 接收方
+const mapStateToProps = (state)=>{
+  return state
+}
+//发送方
+const mapDispatchToProps = (dispatch)=>{
+  // 返回一个object，内部key: 函数名；value：函数体，内部是一个dispatch(action)
+  return {
+    sendAction(){
+      dispatch({
+        type:'ADD_ACTION'
+      })
+    }
+  }
+}
+export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(TodoList)
@@ -471,12 +519,39 @@ const VisibleTodoList = connect(
   - **Provider**把store放到context里，所有的子元素可以直接取到store，本质上 Provider 就是给 connect 提供 store 用的。
   - 原理：使用React的context，context可以实现跨组件之间的传递。
 
-### 中间件 redux-thunk，其实开启 redux 的 Chrome 插件的参数（other）也是中间件
+```jsx
+// store 交给 Provider 管理
+import store from '@/store'
+import {Provider} from 'react-redux'
+export default function App(){
+  return (
+  	<Provider store={store}>
+			<div></div>
+		</Provider>
+  )
+}
+```
 
-> 1. 因为 reducer 是纯函数，所以增加中间件来扩展 reducer 的功能
+
+
+## 中间件 ，其实开启 redux 的 Chrome 插件的参数（other）也是中间件
+
+> 1. 因为 reducer 是纯函数，action 是普通对象，所以增加中间件来扩展功能
 > 2. 处理日志
 > 3. 崩溃报告
 > 4. 异步不建议放入中间件
+
+```js
+// applyMiddleware 控制中间件
+// compose增强函数，可以加入多个中间件
+import {createrStore ,applyMiddleware , compose} from 'redux'
+import {reduxThunk} from 'redux-thunk'
+const store = createrStore(reducer, applyMiddleware(thunk))
+```
+
+
+
+### redux-thunk：action处理异步请求
 
 1. 下载包
 
@@ -488,20 +563,32 @@ npm i -S redux-thunk
 
 ```js
 // applyMiddleware 控制中间件
-// compose增强函数
-import {redux ,applyMiddleware , compose} from 'redux'
+// compose增强函数，可以加入多个中间件
+import {createrStore ,applyMiddleware , compose} from 'redux'
 import {reduxThunk} from 'redux-thunk'
+const store = createrStore(reducer, applyMiddleware(thunk))
 ```
 
-3. 配置
-
-```js
-
-```
+### redux-saga：类似 redux-thunk
 
 
 
 ## 其他
+
+### render函数的return中必须是一个根组件，如果并列关系
+
+```html
+<>
+<div>
+  1
+</div>
+<div>
+  2
+</div>
+</>
+```
+
+
 
 ### ref：尽量是用ref而不是通过选择器获取元素
 
