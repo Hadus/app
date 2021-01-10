@@ -215,7 +215,7 @@ this.setState({
 })
 ```
 
-## 生命周期
+## 生命周期-旧版
 
 ### 创建阶段
 
@@ -267,6 +267,59 @@ shouldComponentUpdate(nextProps,nextState){
 
 - componentWillUnmounted
 
+## 生命周期-新（v17后会被改名UNSAFE_）
+
+### 即将废弃--因为被滥用
+
+	- componentWillMount
+	- componentWillRecieveProps
+	- componentWillUpdate
+
+### 创建阶段
+
+- constructor()
+- static defaultProps={} 设置默认值
+- this.state={} 
+- static getDevicedStateFromProps()
+
+```jsx
+static getDevicedStateFromProps(props,state){ // 一般不用，会导致代码冗余
+	console.log('getDevicedStateFromProps');
+  return null;
+  return {name:1} // 如果返回state对象，state任何时候都取决于props,
+}
+```
+
+
+
+- render（虚拟DOM是在render函数中创建的）
+- componentDidMount
+
+### 更新阶段
+
+- static getDevicedStateFromProps()
+- shouldComponentUpdate（state改变直接触发这个函数）(return true or false)
+- render----之前没有了componentWillUpdate
+- getSnapShotBeforeUpdate()
+
+```jsx
+getSnapShotBeforeUpdate(preProps,preState){ // 一般不用，会导致代码冗余
+	console.log('getSnapShotBeforeUpdate');
+  return null;
+  return {name:1} // 如果返回state对象，state任何时候都取决于props,
+}
+// 返回的任何值都会传递给 componentDidUpdate
+// 用于获取滚轮位置，浏览器的一些信息 
+```
+
+
+
+- componentDidUpdate(prevProps, prevState, snapShotValue)
+
+### 销毁阶段
+
+- componentWillUnmounted
+
 ## context组件共享数据--不怎么用
 
 ### 父组件暴露数据
@@ -308,11 +361,17 @@ this.context.msg
 ### 导入
 
 ```jsx
-// HashRouter:路由根容器元素，包含所有路由，一个项目只出现一次，只能包含一个元素
+// 2个Router：路由根容器元素，包含所有路由，一个项目只出现一次，只能包含一个元素
+	// BrowserRouter(/a/b):使用H5 history API，不兼容IE9以下，刷新state不会消失
+	// HashRouter(/#/a/b):使用URL，刷新state会消失，
+// Link：匹配路由链接
+// NavLink:Link升级版,active='active',被点击会自动加类名，默认家‘active’
 // Route：既是路由规则，又是占位符
-// Link：路由链接
 // Switch:匹配到路由不再向下匹配
-import {HashRouter,Route,Link,Switch} from 'react-router-dom'
+// Redirect:没匹配上时，redirect
+import {BrowserRouter,HashRouter,Route,Link,NavLink,Switch,Redirect} from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
+// withRouter:function,高阶组件，提供路由API给普通组件 export default withRouter(Header)
 class App extends React.component{
   render() {
     return  (
@@ -325,10 +384,32 @@ class App extends React.component{
 }
         
 // Link：路由链接
+	// to: 路由链接
+	// exact：开启严格模式，一般不用，而是用<switch>
+	// replace：Boolean，没有历史记录，直接替换当前的路由历史
 // exact 启用精确匹配
 <Link to="/home">首页</Link>
-<Route path="/home" component={Home} exact></Route>
+<Route path="/movie?name=tom&id=1" component={Home} exact></Route>
+// 1.search 传参：this.props.location.search
+// <Link to="/home">首页</Link>
+<Route path="/movie" component={movie} exact></Route>
+// 2.params 传参：this.props.match.params
+// <Link to="/home/dd/1">首页</Link>
+<Route path="/music/:name/:id" component={music} exact></Route>
+// 3.state 传参(不显示在地址栏)：this.props.location.state
+// 注意：BroserRoute的话页面刷新数据还在,但清空缓存就消失，HashRoute会消失
+// <Link to={{pathname:'/book',state:{name:'dd',id:1}}}>首页</Link>
+<Route path="/book" component={book} exact></Route>
+<Redirect to="/home" /> 
 ```
+
+### 方法
+
+- history.go(n)
+- history.goForward()
+- history.goBackward()
+- history.push(to, state)
+- history.replace(to, state)
 
 ## redux 状态管理
 
@@ -343,6 +424,95 @@ class App extends React.component{
 > redux提供单一数据源
 >
 > redux开始加载回默认出发一次reducer，来初始化store中的state树 
+
+## 组件懒加载
+
+```jsx
+import React,{lazy, Suspense} from 'React';
+const Home = lazy(()=>import './Home')
+// 需要用<Suspense> 把路由都包裹起来，并指定路由没回来之前的组件
+<Suspense fullback={<h1>dddd</h1>}>
+   <Route path="/movie" component={movie} exact></Route>
+		<Route path="/music/:name/:id" component={music} exact></Route>   
+<Suspense/>
+```
+
+## render props，形成父子组件
+
+```jsx
+// 父组件
+class Parent extend Component{
+  render(){
+    return (
+    	<>
+      	<h1>父组件</h1>
+      	<A render={(data)=><B data={data}>}></A>
+      </>
+    )
+  }
+}
+// 子组件
+class A extend Component{
+  state = {
+    data: {}
+  }
+  render(){
+    return (
+    	<>
+      	<h1>子组件</h1>
+        this.props.render(state.data)
+      </>
+    )
+  }
+}
+// 孙组件
+class B extend Component{
+  render(){
+    return (
+    	<>
+      	<h1>孙组件</h1>
+         this.props.data
+      </>
+    )
+  }
+}
+```
+
+
+
+## Fragment组件（<></>）-空组件
+
+- 可以让组件不用包在一个元素里面 
+
+## 错误边界
+
+- 适用于生产环境，dev环境还会跳错
+
+```jsx
+state = {
+  hasError:''
+}
+// 当这个组件的子组件出现错误时候调用
+static getDevicedStateFromError(error){
+  return {hasError: error} // 错误时候的state
+}
+// 组件错误时候的生命周期
+componentDidCatch(){
+  
+}
+render(){
+  return (
+  	<>
+      	<h1>孙组件</h1>
+         this.state.hasError?'当前网络不稳定，稍后再试'：<childComponent>
+      </>
+  )
+}
+```
+
+
+
+## react-redux
 
 ### 基本流程
 
@@ -574,6 +744,44 @@ const store = createrStore(reducer, applyMiddleware(thunk))
 
 
 ## 其他
+
+### 类的属性及方法
+
+```jsx
+class Person extend React.component{
+  constructor(props){
+    super(props)
+    this.state = {name:1}
+    this.handleClick = this.handleClick.bind(this)
+  }
+  handleClick(){
+    
+  }
+  render(){
+    return (
+    	<button onClick={handleClick}>button</button>
+    )
+  }
+}
+```
+
+这段代码相当于
+
+```jsx
+class Person extend React.component{
+  state = {name:1}; // 直接在类里面赋值的变量会挂在到类的构造器上
+  handleClick=()=>{ // 方法也是
+    
+  }
+  render(){
+    return (
+    	<button onClick={handleClick}>button</button>
+    )
+  }
+}
+```
+
+
 
 ### render函数的return中必须是一个根组件，如果并列关系
 
